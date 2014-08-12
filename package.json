@@ -1,0 +1,17 @@
+{
+  "name": "SubLighter",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MinhTruong",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-requirejs": "~0.4.3",
+    "grunt-contrib-less": "~0.10.0",
+    "grunt-contrib-jshint": "~0.10.0"
+  }
+}

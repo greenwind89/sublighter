@@ -1,0 +1,17 @@
+{
+  "name": "SubLighter",
+  "version": "1.0.0",
+  "authors": [
+    "greenwind89 <minh.truonganh7@gmail.com>"
+  ],
+  "description": "Awesome",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
