@@ -19,6 +19,7 @@
 -->
 <html>
     <head>
+        <link rel="stylesheet" href="vendor/mocha/mocha.css" />
         <link rel="stylesheet" href="app/build/css/sublighter.css" />
     </head>
     <body>
@@ -27,9 +28,16 @@
         <script src="cordova.js"></script>
 
         <!-- Third party libraries needed to be loaded first -->
-        <script src="vendor/jquery/dist/jquery.js"></script>
+        <script src="vendor/jquery/jquery.js"></script>
+        <script src="vendor/jquery-xmlrpc/jquery.xmlrpc.js"></script>
         <script src="vendor/underscore/underscore.js"></script>
         <script src="vendor/backbone/backbone.js"></script>
+        <script src="vendor/backbone.localStorage/backbone.localStorage.js"></script>
+
+        <!-- for testing -->
+        <script type="text/javascript" src="vendor/mocha/mocha.js"></script>
+        <script type="text/javascript" src="vendor/should/should.js"></script>
+
 
         <!-- Initialize requirejs -->
         <script data-main="app/bootstrap.js" src="vendor/requirejs/require.js"></script>

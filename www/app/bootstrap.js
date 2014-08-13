@@ -13,6 +13,10 @@ require.config({
             name : 'subtitle',
             location : './app/module/subtitle'
         },
+        {
+            name : 'test',
+            location : './app/module/test'
+        },
     ],
 	paths : {
 		jade : './vendor/require-jade/jade',
@@ -21,7 +25,8 @@ require.config({
 
 
 var packages = [
-    'subtitle'
+    'subtitle',
+    'test'
 ];
 
 
