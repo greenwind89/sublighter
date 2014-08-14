@@ -1,7 +1,8 @@
 define([
     'core/template-engine/index', 
     'core/api/index', 
-    'core/collection/setting'
+    'core/collection/setting',
+    'core/model/global'
 ], function() {
     'use strict';
 
@@ -9,8 +10,9 @@ define([
         api            = require('core/api/index'),
         Settings       = require('core/collection/setting'),
         settings       = new Settings(),
-        Router = Backbone.Router.extend({}),
-        contenHolderId = '#content';
+        Router         = Backbone.Router.extend({}),
+        contenHolderId = '#content',
+        Global         = require('core/model/global');
 
     // Set up template skeleton
     $(contenHolderId).html(templateEngine.getTemplate());
@@ -21,6 +23,9 @@ define([
         templateEngine: templateEngine,
         api           : api,
         settings      : settings,
-        router: new Router(),
+        router        : new Router(),
+        global        : new Global()
     };
+
+    // window.location = '#subtitle/search';
 });

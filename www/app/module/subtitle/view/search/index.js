@@ -1,19 +1,20 @@
 define([
-    'jade!subtitle/view/search/index',
+    'jade!subtitle/template/search/index',
     'subtitle/view/search/result-list',
-    'subtitle/collection/search-result'
+    'subtitle/model/search'
 ], function() { 
     'use strict';
 
-    var tpl = require('jade!subtitle/view/search/index'),
+    var tpl = require('jade!subtitle/template/search/index'),
         ResultsView = require('subtitle/view/search/result-list'),
-        Results = require('subtitle/collection/search-result');
+        Search = require('subtitle/model/search');
 
     var SearchView = Backbone.View.extend({
         initialize: function() {
-            this.searchResults = new Results();
+            this.search = new Search();
+
             this.searchResultsView = new ResultsView({
-                collection: this.searchResults
+                model: this.search
             });
         },
 
@@ -45,7 +46,7 @@ define([
                 episode: info.episode,
                 season: info.season
             }).done(function(data) {
-                that.searchResults.reset(data);
+                that.search.set('searchResults', data);
             });
         },
     });

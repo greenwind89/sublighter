@@ -12,13 +12,13 @@ define([
         tagName: 'div',
 
         initialize: function() {
-            this.collection.on('reset', this.render, this);
+            this.model.on('change:searchResults', this.render, this);
         },
 
         render: function() {
             this.$el.html('');
 
-            _.each(this.collection.models, function(result) {
+            _.each(this.model.get('searchResults').models, function(result) {
                 this.$el.append(new ItemView({model: result}).render().el);
             }, this);
 

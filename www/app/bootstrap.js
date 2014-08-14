@@ -20,6 +20,7 @@ require.config({
     ],
 	paths : {
 		jade : './vendor/require-jade/jade',
+        pako : './vendor/pako/dist/pako'
 	},
 });
 
