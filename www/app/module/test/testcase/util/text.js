@@ -2,6 +2,14 @@ define([
 ], function() {
     'use strict';
     
+    var joinWordsInSentence = function(words) {
+        var result = [];
+        for(var i = 0, len = words.length; i < len; i++) {
+            result.push(words[i].original);
+        }
+        return result.join(' ');
+    }
+
     describe('Test extract season episode and movie name from a text', function() {
         it('Should get season 1 episode 2', function() {
             var input1 = 'Suits s01e02',
@@ -30,6 +38,26 @@ define([
             // (result.season === null).should.be.true;
             // (result.episode === null).should.be.true;
             result.name.should.equal('breaking bad');
+        });
+    });
+
+    describe('Test get words from sentence', function() {
+        it('Should get original sentence by combines resulting words', function() {
+            var input = "I'm afraid you're gonna start shooting light out of your ass",
+                words;
+
+            words = util.text.getWordsInSentence(input);
+            joinWordsInSentence(words).should.equal(input);
+        });
+
+        it('Should distinct between qualify words and stop words', function() {
+            var input = "I'm afraid you're gonna start shooting light out of your ass",
+                words;
+
+            words = util.text.getWordsInSentence(input);
+            words[0].isQualify.should.equal(false);
+            words[1].isQualify.should.equal(true);
+
         });
     });
 });

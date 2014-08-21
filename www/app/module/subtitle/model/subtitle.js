@@ -12,7 +12,9 @@ define([
         getSentences: function() {
             var sentences;
             if(!this.get('sentences')) {
-                this.set('sentences', new Sentences(util.text.parseSubtitleToSentences(this.get('content'))));
+                this.set('sentences', new Sentences(util.text.parseSubtitleToSentences(this.get('content')), {
+                    silent: false
+                }));
             }
 
             return this.get('sentences');
