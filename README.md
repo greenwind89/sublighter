@@ -1,3 +1,4 @@
+SubLighter is a system to support movie viewers who are watching movie with subtitle. The system consists of a web interface, an iOS application, an Android application and a Chrome plugin , all of them should use the same core source code which is written in JavaScript, mobile applications are backed by Apache Cordova. At the first phase of the implementation, we will implement an iOS  application using Apache Cordova. 
 
 The core source code physical structure is modularized by RequireJS, the logical structure is constructed on Backbone, the DOM manipulations are performed by the assistance of jQuery. 
 

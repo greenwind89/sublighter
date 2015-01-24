@@ -22,7 +22,8 @@ define([
 
         events: {
             'click #js-search-btn': 'handleClickOnSearchBtn',
-            'keyup #js-search-query': 'checkKey'
+            'keyup #js-search-query': 'checkKey',
+            'focus #js-search-query': 'handleFocusOnQuery'
         },
 
         render: function() {
@@ -32,6 +33,8 @@ define([
 
             this.$searchBtn = $('#js-search-btn', this.$el);
             this.$searchQuery = $('#js-search-query', this.$el);
+
+            this.$logo = $('#js-logo', this.$el);
 
             return this;
         },
@@ -55,6 +58,15 @@ define([
             if(e.keyCode == 13) {
                 this.handleClickOnSearchBtn();
             }
+        },
+
+        handleFocusOnQuery: function() {
+            this.transitFromStage1ToStage2();
+        },
+
+        transitFromStage1ToStage2: function() {
+            this.$logo.hide();
+            this.$searchQuery.addClass('stage-2');
         }
     });
 
