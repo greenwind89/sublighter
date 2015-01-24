@@ -21,7 +21,8 @@ define([
         template: tpl,
 
         events: {
-            'click #js-search-btn': 'handleClickOnSearchBtn'
+            'click #js-search-btn': 'handleClickOnSearchBtn',
+            'keyup #js-search-query': 'checkKey'
         },
 
         render: function() {
@@ -49,6 +50,12 @@ define([
                 that.search.set('searchResults', data);
             });
         },
+
+        checkKey: function(e) {
+            if(e.keyCode == 13) {
+                this.handleClickOnSearchBtn();
+            }
+        }
     });
 
     return SearchView;

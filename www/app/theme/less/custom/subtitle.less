@@ -2,16 +2,74 @@
 .navigator {
     position: fixed;
     top: @subtitle-navigator-top;
+    margin: 0 @subtitle-navigator-side-margin 0 @subtitle-navigator-side-margin;
 
     .player-control {
-        padding: 2px;
+        .btn;
+        .btn-primary;
+
+        margin: 5px;
     }
+    
+    .player-board {
+        .center-block();
+        width: 85%;
+    }
+}
+
+.analyzer {
+    position: fixed;
+    top: @subtitle-analyzer-top;
+    width: 97%;
+    margin: 0 @subtitle-navigator-side-margin 0 @subtitle-navigator-side-margin;
+
+    .word-definition-holder {
+        overflow: scroll;
+        height: @subtitle-analyzer-definition-height;
+    }
+}
+
+#js-analyzer-expand-collapse-btn {
+    position: fixed;
+    top: @subtitle-analyzer-top;
+    right: 15px;
+}
+
+#js-navigator-expand-collapse-btn {
+    position: fixed;
+    top: @subtitle-navigator-top;
+    right: 15px;
 }
 
 .sentence-list {
     margin-top: @sentence-list-top;
 
     .current {
-        background-color: blue;
+        font-size: @sentence-current-font-size;
+        font-weight: bold;
+
+        margin: 10px;
+
+        .extra-info{
+            .pull-right();
+            font-size: @sentence-extra-info-font-size;
+        }
     }
+
+    .sentence {
+        padding: 0 @sentence-side-margin 2px @sentence-side-margin;
+
+        .clearfix();
+    }
+
+    .qualify-word {
+        .label();
+        .label-default();
+        font-size: 100%;
+    }
+}
+
+.logo {
+    margin-top: 40%;
+    margin-left: 20%;
 }

@@ -12,7 +12,7 @@ define([
     var Navigator = Backbone.View.extend({
         template: tpl,
 
-        className: 'panel panel-default',
+        // className: 'panel panel-default',
 
         // for internal use
         intervalFunction: function() { }, // auto play function
@@ -23,6 +23,7 @@ define([
             'click #js-backward': 'handleClickOnBackward',
             'click #js-play-pause': 'handleClickOnPlayPause',
             'click #js-search-direction': 'handleClickOnSearchDirection',
+            'click #js-analyzer-expand-collapse-btn': 'handleClickOnCollapseExpandBtn',
         },
 
         initialize: function() {
@@ -250,6 +251,9 @@ define([
                 this.navigator.set('searchDirection', 'forward');
                 this.search();
             }
+        },
+
+        handleClickOnCollapseExpandBtn: function() {
         }
 
     });

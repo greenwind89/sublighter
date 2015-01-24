@@ -36,7 +36,8 @@ define([
         render: function() {
 
             if(this.model.get('isCurrent') === true) {
-                var wordsInSentence = new WordsInChosenSentenceCollection(util.text.getWordsInSentence(this.model.get('content')));
+                var wordsInSentence = new WordsInChosenSentenceCollection(util.text.getWordsInSentence(this.model.get('content'))),
+                    $content;
 
                 this.$el.addClass('current');
 
@@ -44,15 +45,17 @@ define([
                     scrollTop: this.$el.offset().top - util.constants.NAVIGATOR_AND_HEADER_HEIGHT - 100
                 }, 500);
 
-                this.$el.html(this.chosenSentenceTemplate());
+                this.$el.html(this.chosenSentenceTemplate(this.model.toJSON()));
+
+                $content = $('.content', this.$el);
 
                 _.each(wordsInSentence.models, function(word) {
                     if(word.get('isQualify')) {
 
-                        this.$el.append(' ');
-                        this.$el.append(new QualifyWordView({model: word}).render().el);
+                        $content.append(' ');
+                        $content.append(new QualifyWordView({model: word}).render().el);
                     } else {
-                        this.$el.append(' ' + word.get('original'));
+                        $content.append(' ' + word.get('original'));
                     }
 
                 }, this);

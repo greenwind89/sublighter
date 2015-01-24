@@ -1,13 +1,15 @@
 define([
     'jade!subtitle/template/detail/index',
     'subtitle/view/detail/sentence-list',
-    'subtitle/view/detail/navigator'
+    'subtitle/view/detail/navigator',
+    'subtitle/view/detail/analyzer'
 ], function() { 
     'use strict';
 
     var tpl = require('jade!subtitle/template/detail/index'),
         SentenceListView = require('subtitle/view/detail/sentence-list'),
-        NavigatorView = require('subtitle/view/detail/navigator');
+        NavigatorView = require('subtitle/view/detail/navigator'),
+        AnalyzerView = require('subtitle/view/detail/analyzer');
 
     var DetailIndex = Backbone.View.extend({
         template: tpl,
@@ -17,6 +19,7 @@ define([
             this.renderSentences();
 
             this.renderNavigator();
+            this.renderAnalyzer();
 
             return this;
         },
@@ -33,6 +36,13 @@ define([
             $('#js-navigator-holder', this.$el).html(new NavigatorView({
                 model: this.model
             }).render().el);
+        },
+
+        renderAnalyzer: function() {
+            $('#js-analyzer-holder', this.$el).html(new AnalyzerView({
+                model: this.model
+            }).render().el);
+
         }
     });
 

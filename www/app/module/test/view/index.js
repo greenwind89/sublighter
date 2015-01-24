@@ -20,6 +20,10 @@ define([
                     name: 'Test Text Utilities',
                     path: 'test/testcase/util/text'
                 },
+                {
+                    name: 'Test Data Structure',
+                    path: 'test/testcase/util/data'
+                },
             ]);
             
         },

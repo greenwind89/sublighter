@@ -14,6 +14,10 @@ require.config({
             location : './app/module/subtitle'
         },
         {
+            name : 'word',
+            location : './app/module/word'
+        },
+        {
             name : 'test',
             location : './app/module/test'
         },
@@ -27,6 +31,7 @@ require.config({
 
 var packages = [
     'subtitle',
+    'word',
     'test'
 ];
 

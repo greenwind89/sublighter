@@ -27,5 +27,5 @@ define([
         global        : new Global()
     };
 
-    // window.location = '#subtitle/search';
+    window.location = '#subtitle/search';
 });
