@@ -6,7 +6,7 @@ define([
     var tpl = require('jade!subtitle/template/search/result-item');
 
     var ResultItem = Backbone.View.extend({
-        className: 'list-group-item',
+        className: 'search-result-item',
 
         events: {
             'click': 'handleClick'

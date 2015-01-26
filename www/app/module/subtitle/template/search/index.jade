@@ -1,13 +1,15 @@
-.logo#js-logo
-    h1 SubLighter
+.logo#js-logo.text-center
+    h2 SubLighter
 .row
-    .col-xs-10.col-xs-offset-1
+    .col-xs-10.col-xs-offset-1.search-input-wrapper#js-search-input-wrapper
         // .input-group
-        input.form-control#js-search-query(type="text")
+        input.search-query-input#js-search-query(type="text")
             // span.input-group-btn
             //     button.btn.btn-default#js-search-btn(type="button") Go
+        .clear-input-btn-wrapper
+            span.clear-input-btn#js-clear-input-btn
 
  .row
-     #js-search-result-holder.col-xs-10.col-xs-offset-1
+     #js-search-result-holder.col-xs-12
 
     

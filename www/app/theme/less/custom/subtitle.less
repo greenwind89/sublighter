@@ -70,6 +70,65 @@
 }
 
 .logo {
-    margin-top: 40%;
-    margin-left: 20%;
+    margin-top: 50%;
 }
+
+.search {
+    .twitter-typeahead {
+        width: 100%;
+    }
+
+    .search-query-input {
+        border: none;
+        width: 80%;
+        outline: none;
+        padding-left: @subtitle-search-padding-left-search-result-item; //webkit ios 8 automatically adds 7px of padding for input field
+    }
+
+    .search-input-wrapper {
+        border: 1px solid #cdcdcd;
+        height: 35px;
+        border-color: rgba(0,0,0,.15);
+        padding-top: 4px;
+    }
+
+    .search-input-wrapper.stage-2 {
+        width: 110%;
+        margin-left: 0px;
+        border: none;
+        border-bottom: 1px solid #cdcdcd;
+    }
+
+    //twitter autocomplete custom style 
+    .tt-dataset-movies {
+        padding-top: 5px;
+    }
+
+    .clear-input-btn {
+        .glyphicon;
+        .glyphicon-remove;
+        color: @subtitle-search-clear-search-input-btn-color;
+    }
+
+    .clear-input-btn-wrapper {
+        display: none;
+        position: absolute;
+        margin-left: 80%;
+        margin-top: -18px;
+    }
+
+    .stage-2 {
+        .clear-input-btn-wrapper {
+            display: block;
+        }
+    }
+
+    .search-result-list {
+        .search-result-item {
+            // border-bottom: 1px solid #cdcdcd;
+            padding: 10px 0px 0px @subtitle-search-padding-left-search-result-item;
+            min-height: 45px;
+        }
+    }
+}
+

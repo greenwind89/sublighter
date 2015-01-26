@@ -7,7 +7,7 @@ define([
 
     var ResultList = Backbone.View.extend({
 
-        className: 'list-group',
+        className: 'search-result-list',
 
         tagName: 'div',
 
