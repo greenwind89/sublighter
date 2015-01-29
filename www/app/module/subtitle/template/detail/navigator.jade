@@ -1,11 +1,14 @@
-.panel-body.panel.panel-default 
-    .input-group
-        input.form-control#js-navigator-search-input(type="text")
-        span.input-group-addon#js-search-direction(data-direction="forward") &gt;&gt; 
+.navigator-body
+    // .input-group
+    //     input.form-control#js-navigator-search-input(type="text")
+    //     span.input-group-addon#js-search-direction(data-direction="forward") &gt;&gt; 
     .btn-group.player-board
-        button.player-control#js-backward backward
-        button.player-control#js-play-pause play
-        button.player-control#js-forward forward
+        button.player-control.backward#js-backward 
+            i
+        button.player-control.play#js-play-pause 
+            i
+        button.player-control.forward#js-forward
+            i
     // span.player-control#js-backward backward
     // span.player-control#js-play-pause play
     // span.player-control#js-forward forward

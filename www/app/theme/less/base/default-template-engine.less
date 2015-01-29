@@ -1,9 +1,27 @@
 .template-navigator{
     position: fixed;
-    top: @ios-status-bar-height;
+    // top: @ios-status-bar-height;
+    bottom: 10px;
     height: @template-header-height;
+    .nav-tab-item.current {
+        color: @template-nav-item-highlight-color;
+    }
+}
+
+.template-navigator-top{
+    position: fixed;
+    top: 0px;
+    height: @template-top-nav-height;
+    background-color: @template-top-nav-bg-color;
+    .back-btn {
+        margin-top: @ios-status-bar-height + 2;
+    }
 }
 
 #main{
     margin-top: @template-header-height + @ios-status-bar-height;    
+}
+
+.body {
+    width: @ios-iphone-6-width;
 }

@@ -1,27 +1,75 @@
 
 .navigator {
     position: fixed;
-    top: @subtitle-navigator-top;
+    bottom: @subtitle-navigator-bottom;
     margin: 0 @subtitle-navigator-side-margin 0 @subtitle-navigator-side-margin;
+    width: @subtitle-navigator-width;
+    z-index: @subtitle-navigator-z-index;
 
     .player-control {
         .btn;
-        .btn-primary;
+        .btn-default;
+        width: 50px;
+        height: 50px;
+        border-color: white;
 
-        margin: 5px;
+        &.forward {
+            i {
+                color: @subtitle-navigator-player-button-color;
+                .glyphicon;
+                .glyphicon-forward;
+                .rotate-90;
+            }
+
+        }
+        
+        &.backward {
+            i {
+                color: @subtitle-navigator-player-button-color;
+                .glyphicon;
+                .glyphicon-backward;
+                .rotate-90;
+            }
+
+        }
+
+        &.play {
+            i {
+                color: @subtitle-navigator-player-button-color;
+                .glyphicon;
+                .glyphicon-play;
+            }
+
+        }
+
+        &.pause {
+            i {
+                color: @subtitle-navigator-player-button-color;
+                .glyphicon;
+                .glyphicon-pause !important;
+            }
+
+        }
     }
     
     .player-board {
         .center-block();
         width: 85%;
     }
+
+    .panel-body {
+        padding: 0px;
+    }
 }
 
 .analyzer {
     position: fixed;
-    top: @subtitle-analyzer-top;
-    width: 97%;
+    bottom: @subtitle-analyzer-bottom;
+    width: 80%;
     margin: 0 @subtitle-navigator-side-margin 0 @subtitle-navigator-side-margin;
+    left: @subtitle-analyzer-left;
+    width: @subtitle-analyzer-width;
+    z-index: @subtitle-navigator-z-index;
 
     .word-definition-holder {
         overflow: scroll;
@@ -42,7 +90,7 @@
 }
 
 .sentence-list {
-    margin-top: @sentence-list-top;
+    margin-top: @sentence-list-margin-top;
 
     .current {
         font-size: @sentence-current-font-size;
@@ -101,7 +149,13 @@
 
     //twitter autocomplete custom style 
     .tt-dataset-movies {
-        padding-top: 5px;
+        padding-top: 10px;
+    }
+
+    .tt-dropdown-menu {
+        height: @twitter-dropdown-menu-height;
+        overflow: scroll;
+        margin-top: 10px; 
     }
 
     .clear-input-btn {
@@ -132,3 +186,11 @@
     }
 }
 
+#backdrop-analyzer-navigator {
+    position: fixed;
+    width: 100%;
+    height: @subtitle-navigator-height;
+    bottom: 0px;
+    background-color: @subtitle-nav-analyzer-backdrop-color;
+    z-index: @subtitle-nav-analyzer-backdrop-z-index;
+}

@@ -142,9 +142,9 @@ define([
 
         handleChangePlayingStatus: function() {
             if(this.navigator.get('isPlaying') === true) {
-                $('#js-play-pause', this.$el).html('Pause');
+                $('#js-play-pause', this.$el).addClass('pause');
             } else {
-                $('#js-play-pause', this.$el).html('Play');
+                $('#js-play-pause', this.$el).removeClass('pause');
             }
         },
 

@@ -1,16 +1,36 @@
 // default template 
 @template-header-height: 20px;
+@template-nav-item-highlight-color: @brand-primary;
+@template-top-nav-height: 45px;
+@template-top-nav-bg-color: white;
 
-@subtitle-navigator-height: 100px;
-@subtitle-navigator-top: @template-header-height + 10px;
+//subtitle 
+
+//navigator
+@subtitle-navigator-top: @template-header-height + @ios-status-bar-height + 10px;
+@subtitle-navigator-bottom: 5px;
+@subtitle-navigator-height: 200px;
+@subtitle-navigator-width: 20%;
 @subtitle-navigator-side-margin: 5px; //left and right
+@subtitle-navigator-player-button-color: black;
+@subtitle-navigator-z-index: @subtitle-nav-analyzer-backdrop-z-index + 1;
 
+//analyzer
 @subtitle-analyzer-top: 400px; //@todo: adjust later
+@subtitle-analyzer-bottom: @subtitle-navigator-bottom;
 @subtitle-analyzer-height: 200px; //@todo: adjust later
 @subtitle-analyzer-definition-height: 120px; //@todo: adjust later
 @subtitle-analyzer-size-margin: @subtitle-navigator-side-margin;
+@subtitle-analyzer-width: 75%;
+@subtitle-analyzer-left: 25%;
 
-@sentence-list-top: @subtitle-navigator-top + @subtitle-navigator-height + @template-header-height + 10px;
+
+//backdrop
+@subtitle-nav-analyzer-backdrop-color: white;
+@subtitle-nav-analyzer-backdrop-z-index: 100;
+
+
+@sentence-list-margin-top: @template-top-nav-height + 10px;
 @sentence-side-margin: 5px;
 @sentence-extra-info-font-size: 6pt;
 @sentence-current-font-size: 12pt;
@@ -21,3 +41,8 @@
 
 //System variable
 @ios-status-bar-height: 20pt;
+@ios-iphone-6-height: 667px;
+@ios-iphone-6-width: 375px;
+
+//twitter typeahead 
+@twitter-dropdown-menu-height: 400px;

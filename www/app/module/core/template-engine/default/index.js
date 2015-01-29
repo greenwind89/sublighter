@@ -9,12 +9,18 @@
  */ 
 define([
     'jade!core/template-engine/default/index',
-    'jade!core/template-engine/default/level2-template'
+    'jade!core/template-engine/default/level2-template',
+    'core/template-engine/model/navigator',
+    'core/template-engine/model/tab-view',
+    'core/template-engine/default/nav-item',
 ], function() { 
     'use strict';
     
     var tpl = require('jade!core/template-engine/default/index');
     var level2Tpl = require('jade!core/template-engine/default/level2-template');
+    var NavigatorModel = require('core/template-engine/model/navigator');
+    var TabViewModel = require('core/template-engine/model/tab-view');
+    var NavItemView = require('core/template-engine/default/nav-item');
 
     var IndexView = Backbone.View.extend({
         template: tpl,
@@ -26,35 +32,32 @@ define([
             'click .back-btn': 'goBack'
         },
 
+        initialize: function() {
+            this.navigator = new NavigatorModel();
+            this.isRenderedNavigator = false;
+        },
+
         render: function() {
             var that = this;
             this.$el.html(this.template());
-            this.$main = $('#main', indexView.$el);
+            this.$main = $('#main', this.$el);
+            this.$navTabItems = $('#js-nav-tab-items', this.$el);
 
-            Hammer(this.$main.get(0)).on('swipeleft', function(event) {
-                console.log('goleft');
-                that.goRight();
-            });
+            this.$topNav = $('#js-template-navigator-top', this.$el);
+            this.$bottomNav = $('#js-template-navigator-bottom', this.$el);
+            return this;
+        },
 
-            Hammer(this.$main.get(0)).on('swiperight', function(event) {
-                console.log('goright');
-                that.goLeft();
-            });
-
-            this.$leftItem = $('#js-left-nav-item', this.$el);
-            this.$rightItem = $('#js-right-nav-item', this.$el);
-            this.$centerItem = $('#js-center-nav-item', this.$el);
-
-            // asumme #items >= 3
-            if(!this.itemsInLevel1.isEmpty()) { 
-                this.$leftItem.html('<a href="#' + this.itemsInLevel1.getLeft().url + '">' + this.itemsInLevel1.getLeft().name + '</a>');
-                this.$rightItem.html('<a href="#' + this.itemsInLevel1.getRight().url + '">' + this.itemsInLevel1.getRight().name + '</a>');
-                this.$centerItem.html(this.itemsInLevel1.getCurrent().name);
+        renderNavigator: function() {
+            var tabViews = this.navigator.get('tabViews');
+            for(var i = 0, len = tabViews.length; i < len; i++) {
+                var $tempView = this.getTempView(i + 1);
+                $tempView.html(tabViews[i].get('viewObj').render().el);
+                tabViews[i].set('$tempView', $tempView);
+                this.$navTabItems.append(new NavItemView({model: tabViews[i]}).render().el);
             }
 
-            
-
-            return this;
+            this.isRenderedNavigator = true;
         },
 
         goLeft: function() {
@@ -75,24 +78,81 @@ define([
             window.history.back();
         },
 
-        renderLevel2: function() {
-            this.$el.html(this.level2Template());
+        renderLevel2: function(view) {
+            // this.$el.html(this.level2Template());
+            // this.$main = $('#main', this.$el);
+            this.turnOnTopNav();
+            this.hideAllLevel1Views();
+            var $tempViewLvl2 = $('#js-temp-view-level-2', this.$el);
+            $tempViewLvl2.addClass('must-show');
+            $tempViewLvl2.html(view.render().el);
             return this;
+        },
+
+        turnOnTopNav: function() {
+            this.$topNav.addClass('must-show');
+            this.$bottomNav.hide();
+        },
+
+        hideAllLevel1Views: function() {
+            var tabViews = this.navigator.get('tabViews');
+            if(tabViews.length > 0) {
+                for(var i = 0, len = tabViews.length; i < len; i++) {
+                    tabViews[i].get('$tempView').removeClass('must-show');
+                }
+            }
+        },
+
+        turnOnBottomNav: function() {
+            this.$topNav.removeClass('must-show');
+            this.$bottomNav.show();
+        },
+
+        renderLevel1: function(view) {
+            this.turnOnBottomNav();
+            $('#js-temp-view-level-2', this.$el).removeClass('must-show');
+
+            this.isRenderedNavigator || this.renderNavigator();
+            var tabViews = this.navigator.get('tabViews');
+            if(tabViews.length > 0) {
+                for(var i = 0, len = tabViews.length; i < len; i++) {
+                    if(tabViews[i].get('viewObj') === view) {
+                        // by default, temp view is hidden
+                        tabViews[i].get('$tempView').addClass('must-show');;
+                    } else {
+                        tabViews[i].get('$tempView').removeClass('must-show');;
+                    }
+                }
+            }
         },
 
         setMainPage: function(view, level) {
             if(level == 2) {
-                this.renderLevel2();
+                this.renderLevel2(view);
             } else {
-                this.render();
+                this.renderLevel1(view);
             }
 
-            this.$main.html(view.render().el);
         },
 
+
+
+
         setMainPageByUrl: function(url, level) {
-            var item = this.itemsInLevel1.setCurrentByItemProperty('url', url);
-            this.setMainPage(item.viewObj, level);
+            var item = this.navigator.setCurrentTabByProperty('url', url);
+            // this.$main.html(item.viewObj.render().el);
+            this.setMainPage(item.get('viewObj'), level);
+        },
+
+        setItemsLevel1: function(items) {
+            for(var i = 0, len = items.length; i < len; i++) {
+                //! important to render it first so that we can just attach el of view to retain the content
+                this.navigator.addTabView(new TabViewModel(items[i]));
+            }
+        },
+
+        getTempView: function(index) {
+            return $('#js-temp-view-' + index, this.$el);
         }
 
 
@@ -117,10 +177,9 @@ define([
          * {url, viewObj, name} 
          */
         setItemsOnLevel1: function(items) {
-            for(var i = 0, len = items.length; i < len; i++) {
-                indexView.itemsInLevel1.push(items[i]);
-            }
+            indexView.setItemsLevel1(items);
         },
+
         indexView: indexView
     };
 });
