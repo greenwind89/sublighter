@@ -13,11 +13,11 @@ define([
         render: function() {
             this.$el.html(this.template());
 
-            _.each(core.global.savedDefs.models, function(def) {
-                this.$el.append(new SavedItemView({
-                    model: def
-                }).render().el); 
-            }, this);
+            // _.each(core.global.savedDefs.models, function(def) {
+            //     this.$el.append(new SavedItemView({
+            //         model: def
+            //     }).render().el); 
+            // }, this);
 
             return this;
         }

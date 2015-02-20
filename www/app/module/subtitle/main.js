@@ -4,7 +4,9 @@ define([
     'subtitle/collection/subtitle',
     'subtitle/view/list/search-history',
     'word/view/list/saved',
-    'word/collection/definition'
+    'word/collection/definition',
+    'word/collection/word-list',
+    'word/collection/word',
 ],function() {
     'use strict';
 
@@ -13,14 +15,8 @@ define([
         DetailView = require('subtitle/view/detail/index'),
         HistoryView = require('subtitle/view/list/search-history'),
         historyView = new HistoryView(),
-        CachedSubtitles = require('subtitle/collection/subtitle').extend({
-            localStorage: new Backbone.LocalStorage("CachedSubtitles")
-        }),
-        SavedDefs = require('word/collection/definition').extend({
-            localStorage: new Backbone.LocalStorage("SavedDefs")
-        }),
-        SavedWordsList = require('word/view/list/saved'),
-        savedWordsList = new SavedWordsList();
+        SavedWordsListView = require('word/view/list/saved'),
+        savedWordsListView = new SavedWordsListView();
 
 
     core.router.route('word/list/saved', function() {
@@ -36,22 +32,19 @@ define([
     });
 
     core.router.route('subtitle/detail/:id', function(id) {
-        var sub = core.global.cachedSubtitles.findWhere({
-                providerMovieId: id
-            }),
-            pageLevel = 2,
-            detailView = new DetailView({
-                model: sub
-            });
+        core.db.get(util.constants.SUBTITLE_TABLE_NAME).done(function(subs) {
+            var sub = subs.findWhere({
+                    providerMovieId: id
+                }),
+                pageLevel = 2,
+                detailView = new DetailView({
+                    model: sub
+                });
 
-        core.templateEngine.setMainPage(detailView, pageLevel); 
+            core.templateEngine.setMainPage(detailView, pageLevel); 
+        });
     });
 
-    core.global.cachedSubtitles = new CachedSubtitles();
-    core.global.cachedSubtitles.fetch();
-
-    core.global.savedDefs = new SavedDefs();
-    core.global.savedDefs.fetch();
 
     core.templateEngine.setItemsOnLevel1([
         {
@@ -64,7 +57,12 @@ define([
             name: 'Search',
         }, {
             url: 'word/list/saved',
-            viewObj: savedWordsList, 
+            viewObj: savedWordsListView, 
             name: 'Words'
     }]);
+
+    //register DB Tables
+    core.db.registerTable(util.constants.SUBTITLE_TABLE_NAME, require('subtitle/collection/subtitle'));
+    core.db.registerTable(util.constants.WORD_LIST_TABLE_NAME, require('word/collection/word-list'));
+
 });

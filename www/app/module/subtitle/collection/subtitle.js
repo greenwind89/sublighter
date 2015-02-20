@@ -9,7 +9,13 @@ define([
 
         model: Subtitle,
 
-        localStorage: new Backbone.LocalStorage("SubtitleCollection"),
+        defaults: {
+            content: '',
+            title: ''
+        },
+
+        localStorage: new Backbone.LocalStorage(util.constants.SUBTITLE_TABLE_NAME),
+
 
         createIfNotExistFromSearchResult: function(searchResultModel) {
             var deferred = $.Deferred(),
@@ -23,7 +29,7 @@ define([
                 searchResultModel.downloadSubtitle().done(function(content) {
                     sub = new Subtitle(searchResultModel.toJSON());
                     sub.set('content', content);
-                    core.global.cachedSubtitles.create(sub);
+                    sub.set('title', searchResultModel.get('moviewUploadedName'));
                     deferred.resolve(sub);
                 });
             } else {

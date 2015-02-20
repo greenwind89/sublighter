@@ -1,6 +1,7 @@
 define([
     'core/template-engine/index', 
     'core/api/index', 
+    'core/db/index', 
     'core/collection/setting',
     'core/model/global'
 ], function() {
@@ -8,6 +9,7 @@ define([
 
     var templateEngine = require('core/template-engine/index'),
         api            = require('core/api/index'),
+        db             = require('core/db/index'),
         Settings       = require('core/collection/setting'),
         settings       = new Settings(),
         Router         = Backbone.Router.extend({}),
@@ -24,7 +26,8 @@ define([
         api           : api,
         settings      : settings,
         router        : new Router(),
-        global        : new Global()
+        global        : new Global(),
+        db            : db
     };
 
     window.location = '#subtitle/search';

@@ -20,6 +20,8 @@ define([
 
             this.renderNavigator();
             this.renderAnalyzer();
+            
+            core.templateEngine.setTitle(this.model.get('title'));
 
             return this;
         },

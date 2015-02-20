@@ -45,3 +45,8 @@ require(['util'], function() { // moment and utils will be global
 			
 });
 
+// initialize fast click
+$(function() {
+    FastClick.attach(document.body);
+});
+

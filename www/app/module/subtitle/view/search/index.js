@@ -2,14 +2,16 @@ define([
     'jade!subtitle/template/search/index',
     'subtitle/view/search/result-list',
     'subtitle/model/search',
-    'subtitle/view/search/movie-titles'
+    'subtitle/view/search/movie-titles',
+    'subtitle/view/list/search-history'
 ], function() { 
     'use strict';
 
-    var tpl = require('jade!subtitle/template/search/index'),
-        ResultsView = require('subtitle/view/search/result-list'),
-        Search = require('subtitle/model/search'),
-        titles = require('subtitle/view/search/movie-titles');
+    var tpl               = require('jade!subtitle/template/search/index'),
+        ResultsView       = require('subtitle/view/search/result-list'),
+        Search            = require('subtitle/model/search'),
+        titles            = require('subtitle/view/search/movie-titles'),
+        SearchHistoryView = require('subtitle/view/list/search-history');
 
     var SearchView = Backbone.View.extend({
         initialize: function() {
@@ -17,6 +19,10 @@ define([
 
             this.searchResultsView = new ResultsView({
                 model: this.search
+            });
+
+            this.historyView = new SearchHistoryView({
+                // model: this.search
             });
         },
 
@@ -28,17 +34,30 @@ define([
             'click #js-search-btn': 'handleClickOnSearchBtn',
             'keyup #js-search-query': 'checkKey',
             'focus #js-search-query': 'handleFocusOnQuery',
+            'blur #js-seach-query': 'handleBlurOnQuery',
             'click #js-clear-input-btn': 'clearInput'
         },
 
         render: function() {
+            var that = this;
             this.$el.html(this.template());
 
+            this.$searchHistoryHolder = $('#js-history-holder', this.$el);
+
             $('#js-search-result-holder', this.$el).html(this.searchResultsView.render().el);
+            this.$searchHistoryHolder.html(this.historyView.render().el);
 
             this.$searchBtn = $('#js-search-btn', this.$el);
             this.$searchQuery = $('#js-search-query', this.$el);
             this.$searchInputWrapper = $('#js-search-input-wrapper', this.$el);
+
+            this.$searchQuery.on('blur', function() {
+                var query = that.$searchQuery.val();
+                if(query !== '') {
+                    that.handleClickOnSearchBtn();
+                }
+            });
+
 
             this.$logo = $('#js-logo', this.$el);
 
@@ -74,7 +93,9 @@ define([
 
         transitFromStage1ToStage2: function() {
             this.$logo.hide();
+            this.$searchHistoryHolder.hide();
             this.$searchInputWrapper.addClass('stage-2');
+            this.searchResultsView.$el.html('');
         },
         
         clearInput: function() {
@@ -84,6 +105,7 @@ define([
 
         transitFromStage2ToStage1: function() {
             this.$logo.show();
+            this.$searchHistoryHolder.show();
             this.$searchInputWrapper.removeClass('stage-2');
             this.searchResultsView.$el.html('');
         },
@@ -126,6 +148,9 @@ define([
                 source: substringMatcher(movies)
             });
 
+        },
+
+        handleBlurOnQuery: function(e) {
         }
 
     });

@@ -1,7 +1,8 @@
 // default template 
 @template-header-height: 20px;
 @template-nav-item-highlight-color: @brand-primary;
-@template-top-nav-height: 45px;
+@template-top-nav-height: @ios-status-bar-height + @template-top-title-height;
+@template-top-title-height: 30px;
 @template-top-nav-bg-color: white;
 
 //subtitle 
@@ -9,21 +10,29 @@
 //navigator
 @subtitle-navigator-top: @template-header-height + @ios-status-bar-height + 10px;
 @subtitle-navigator-bottom: 5px;
-@subtitle-navigator-height: 200px;
-@subtitle-navigator-width: 20%;
+@subtitle-navigator-height: 60px;
+@subtitle-navigator-width: 75%;
 @subtitle-navigator-side-margin: 5px; //left and right
 @subtitle-navigator-player-button-color: black;
 @subtitle-navigator-z-index: @subtitle-nav-analyzer-backdrop-z-index + 1;
+@subtitle-navigator-player-button-w: 50px;
+@subtitle-navigator-player-button-h: 50px;
 
 //analyzer
-@subtitle-analyzer-top: 400px; //@todo: adjust later
-@subtitle-analyzer-bottom: @subtitle-navigator-bottom;
+@subtitle-analyzer-bottom: @subtitle-navigator-bottom + @subtitle-navigator-height;
 @subtitle-analyzer-height: 200px; //@todo: adjust later
 @subtitle-analyzer-definition-height: 120px; //@todo: adjust later
 @subtitle-analyzer-size-margin: @subtitle-navigator-side-margin;
-@subtitle-analyzer-width: 75%;
-@subtitle-analyzer-left: 25%;
+@subtitle-analyzer-width: 100%;
+@subtitle-analyzer-left: 0;
+@subtitle-analyzer-words-list-width: 25%;
+@subtitle-analyzer-word-def-width: 70%;
 
+//subtitle history
+@history-item-padding: 10px;
+@history-background-color: #F2F2F2;
+@history-border-color: #CCCCCC;
+@history-font-size: 12pt;
 
 //backdrop
 @subtitle-nav-analyzer-backdrop-color: white;

@@ -37,9 +37,9 @@ define([
             this.navigator = new NavigatorModel();
             this.navigator.on('change:isPlaying', this.handleChangePlayingStatus, this);
 
-            $(window).on('scroll', function() { 
-                isScrolling || setupScrolling();
-            });
+            // $(window).on('scroll', function() { 
+            //     isScrolling || setupScrolling();
+            // });
 
             setupScrolling = function() {
                 isScrolling = true;
@@ -53,7 +53,7 @@ define([
                             isScrolling = false;
                         }, 500);
                     }, 300);
-                }, 500);
+                }, 1000);
             };
 
             // this.sentences.on('current-change', function() {
@@ -74,12 +74,39 @@ define([
             this.$el.html(this.template());
 
             this.$searchInput = $('#js-navigator-search-input', this.$el);
+            this.$forwardBtn = $('#js-forward', this.$el);
+            this.$backwardBtn = $('#js-backward', this.$el);
+            
             this.searchResult = new SearchSentenceResult();
 
+            // temporally we don't have search input within subtitle
             util.input.autoTrigger(this.$searchInput, function() {
                 that.search();
             }, 1000);
 
+            Hammer(this.$forwardBtn.get(0)).on('press', function(event) {
+                that.autoGo(2, 500);
+            });
+
+            this.$forwardBtn.on('touchend', function() { //pressup doesn't work out of bound
+                that.stopAutoPlay();
+            });
+
+            Hammer(this.$forwardBtn.get(0)).on('pressup', function(event) {
+                that.stopAutoPlay();
+            });
+
+            Hammer(this.$backwardBtn.get(0)).on('press', function(event) {
+                that.autoGo(-2, 500);
+            });
+
+            Hammer(this.$backwardBtn.get(0)).on('pressup', function(event) {
+                that.stopAutoPlay();
+            });
+
+            this.$backwardBtn.on('touchend', function() { //pressup doesn't work out of bound
+                that.stopAutoPlay();
+            });
             return this;
         },
 
@@ -172,7 +199,7 @@ define([
         },
 
         isCurrentElementInViewport: function() {
-            return this.isElementInViewport($('.current').get(0));
+            return this.isElementInViewport($('.sentence.current').get(0));
         },
 
         isElementInViewport: function(el) {
@@ -254,7 +281,19 @@ define([
         },
 
         handleClickOnCollapseExpandBtn: function() {
-        }
+        },
+
+        autoGo: function(step, time) {
+            var that = this;
+            that.pause(); // make sure it pauses
+            that.intervalFunction = setInterval(function() {
+                that.go(step);
+            }, time);
+        },
+
+        stopAutoPlay: function() {
+            clearInterval(this.intervalFunction);
+        },
 
     });
 

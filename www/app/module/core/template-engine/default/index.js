@@ -45,6 +45,8 @@ define([
 
             this.$topNav = $('#js-template-navigator-top', this.$el);
             this.$bottomNav = $('#js-template-navigator-bottom', this.$el);
+
+            this.$topNavTitle = $('#js-top-nav-title', this.$el);
             return this;
         },
 
@@ -153,6 +155,10 @@ define([
 
         getTempView: function(index) {
             return $('#js-temp-view-' + index, this.$el);
+        },
+
+        setTitle: function(title) {
+            this.$topNavTitle.html(title);
         }
 
 
@@ -163,6 +169,10 @@ define([
     return {
         getTemplate: function() {
             return indexView.render().el;
+        },
+
+        setTitle: function(title) {
+            indexView.setTitle(title);
         },
 
         setMainPage: function(view, level) {
